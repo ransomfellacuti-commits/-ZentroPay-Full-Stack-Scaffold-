@@ -6,3 +6,6 @@ backend/data/
 *.log
 dist/
 .DS_Store
+
+# JWT private keys — NEVER commit private key material
+backend/src/config/keys/zentropay_private.pem

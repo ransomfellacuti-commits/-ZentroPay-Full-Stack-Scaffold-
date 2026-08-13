@@ -9,7 +9,17 @@ const getBalance = async (req, res, next) => {
       [req.user.userId]
     );
     if (!result.rows.length) return res.status(404).json({ success: false, message: 'Wallet not found' });
-    res.json({ success: true, wallet: result.rows[0] });
+    const wallet = result.rows[0];
+
+    // ETag based on balance + updated_at for fast not-modified responses
+    const etag = `"wallet-${req.user.userId}-${wallet.balance}-${wallet.updated_at}"`;
+    if (req.headers['if-none-match'] === etag) {
+      return res.status(304).end();
+    }
+    res.set('ETag', etag);
+    res.set('Cache-Control', 'private, max-age=10');
+
+    res.json({ success: true, wallet });
   } catch (err) { next(err); }
 };
 

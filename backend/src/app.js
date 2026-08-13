@@ -31,6 +31,7 @@ app.use('/api/auth',         require('./routes/auth'));
 app.use('/api/users',        require('./routes/users'));
 app.use('/api/transactions', require('./routes/transactions'));
 app.use('/api/wallets',      require('./routes/wallets'));
+app.use('/api/transfers',    require('./routes/transfers'));
 
 // Health checks
 app.get('/health', (req, res) => res.json({

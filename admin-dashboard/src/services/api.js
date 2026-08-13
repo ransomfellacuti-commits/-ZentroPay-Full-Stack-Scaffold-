@@ -37,7 +37,9 @@ export const authAPI = {
 export const usersAPI = {
   getAll:        (params) => api.get('/users', { params }),
   getById:       (id)     => api.get(`/users/${id}`),
+  getProfile:    ()       => api.get('/users/profile'),
   updateProfile: (data)   => api.put('/users/profile', data),
+  setPin:        (data)   => api.post('/users/set-pin', data),
   toggleStatus:  (id)     => api.patch(`/users/${id}/toggle-status`),
 }
 
@@ -49,9 +51,17 @@ export const transactionsAPI = {
 }
 
 export const walletsAPI = {
-  getBalance: ()     => api.get('/wallets/balance'),
-  transfer:   (data) => api.post('/wallets/transfer', data),
+  getBalance: ()       => api.get('/wallets/balance'),
+  transfer:   (data)   => api.post('/wallets/transfer', data),
   getAll:     (params) => api.get('/wallets', { params }),
+}
+
+export const transfersAPI = {
+  getCountries: ()         => api.get('/transfers/countries'),
+  getBanks:     (q, limit) => api.get('/transfers/banks', { params: { q, limit } }),
+  getAll:       (params)   => api.get('/transfers', { params }),
+  create:       (data)     => api.post('/transfers', data),
+  getReceipt:   (id)       => api.get(`/transfers/${id}/receipt`),
 }
 
 export default api
